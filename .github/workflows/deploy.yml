@@ -23,4 +23,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker push luuxia/app-backend:latest
+          tags: luuxia/app-backend:latest
