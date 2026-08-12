@@ -1,17 +1,20 @@
 services:
 
-  nginx:
-      image: nginx:alpine
-      container_name: proxy_nginx
-      ports:
-        - "80:80"
-      volumes:
-        - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      networks:
+nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: proxy-manager
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81" 
+      - "443:443" 
+    volumes:
+      - ./npm_data:/data
+      - ./npm_letsencrypt:/etc/letsencrypt
+    networks:
         - red-cba
-      depends_on:
-        - app_backend
-  servidor-bd:
+          
+servidor-bd:
     image: mysql:8.0
     container_name: servidor-bd
     environment:
@@ -21,8 +24,14 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - red-cba
+    healthcheck:
+      test: ["CMD", "mysqladmin", "pinpg", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
-  app_backend:
+
+app_backend:
     image: luuxia/app-backend:v1
     container_name: app-backend
     environment:
@@ -32,7 +41,14 @@ services:
     networks:
       - red-cba
     depends_on:
-      - servidor-bd
+      - servidor-bd:
+          condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5050/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  
     ports:
       - "5050:5050"
 
