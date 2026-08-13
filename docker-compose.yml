@@ -15,7 +15,7 @@ services:
       - red-cba
 
   servidor-bd:
-    image: mysql:8.0
+    image: mariadb:10.11
     container_name: servidor-bd
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -31,13 +31,12 @@ services:
     networks:
       - red-cba
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 40s
-    mem_limit: 300m
-    memswap_limit: 300m
+      start_period: 30s
+    mem_limit: 250m
 
   app_backend:
     image: luuxia/app-backend:v1
