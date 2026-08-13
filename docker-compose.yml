@@ -56,6 +56,8 @@ services:
       - "3001:3001" 
     volumenes: 
       - uptime-kuma-data:/app/data 
+    networks:
+     - red-cba
 
 networks:
   red-cba:
@@ -64,5 +66,7 @@ networks:
 volumes:
   mysql-data:
     name: mysql-data
+  volumenes: 
+    - uptime-kuma-data:/app/data 
 
 
