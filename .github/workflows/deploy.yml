@@ -2,36 +2,35 @@ name: Publicar Imagen en Docker Hub
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Descargar codigo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
-
+          python-version: "3.14"
 
       - name: Instalar dependencias
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-        
 
-        -name: Ejecutar pruebas pytest
-        run: 
-
+      - name: Ejecutar pruebas pytest
+        run: pytest
 
   build-and-push:
     needs: test
     runs-on: ubuntu-latest
+
     steps:
       - name: Descargar codigo
         uses: actions/checkout@v4
@@ -49,8 +48,6 @@ jobs:
           push: true
           tags: luuxia/app-backend:latest
 
-   # Desplegar en el servidor cloud
-
       - name: Desplegar en el servidor cloud
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -60,4 +57,4 @@ jobs:
           script: |
             cd ~/adso-app
             docker compose pull app_backend
-            docker compose up -d 
+            docker compose up -d app_backend
