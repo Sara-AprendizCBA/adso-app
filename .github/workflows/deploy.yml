@@ -6,7 +6,31 @@ on:
   workflow_dispatch:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+
+      - name: Instalar dependencias
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+        
+
+        -name: Ejecutar pruebas pytest
+        run: 
+
+
   build-and-push:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Descargar codigo
