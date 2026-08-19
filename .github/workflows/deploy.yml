@@ -25,7 +25,7 @@ jobs:
           push: true
           tags: luuxia/app-backend:latest
 
-   
+   # Desplegar en el servidor cloud
       - name: Desplegar en el servidor cloud
         uses: appleboy/ssh-action@v0.1.5
         with:
