@@ -39,7 +39,7 @@ services:
     mem_limit: 250m
 
   app_backend:
-    image: luuxia/app-backend:v1
+    image: luuxia/app-backend:latest
     container_name: app-backend
     environment:
       FLASK_ENV: development
