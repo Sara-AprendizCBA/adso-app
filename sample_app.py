@@ -53,7 +53,7 @@ def registrar():
 # hizo el pull de la imagen nueva y el contenedor se reinicio correctamente
 @sample.route("/version")
 def version():
-    return {"estado": "Deploy verificado - version 2"}
+    return {"estado": "Deploy verificado correctamente, el contenedor se reinicio y trajo el codigo actualizado"}
 
 if __name__ == "__main__":
     sample.run(host="0.0.0.0", port=5050)
