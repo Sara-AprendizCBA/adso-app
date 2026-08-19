@@ -48,12 +48,11 @@ def registrar():
 
     return redirect(url_for("main"))
 
-# Endpoint de prueba para verificar que el despliegue trajo el codigo actualizado
-# Si al entrar a /version ves este mensaje, significa que el pipeline de GitHub Actions
-# hizo el pull de la imagen nueva y el contenedor se reinicio correctamente
+# Endpoint de prueba para verificar que el despliegue trajo el codigo actualizado 
+
 @sample.route("/version")
 def version():
-    return {"estado": "Deploy verificado correctamente, el contenedor se reinicio y trajo el codigo actualizado"}
+    return "<h2>Bienvenido - Deploy verificado: contenedor actualizado correctamente </h2>"
 
 if __name__ == "__main__":
     sample.run(host="0.0.0.0", port=5050)
