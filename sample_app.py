@@ -17,26 +17,8 @@ def get_connection():
 
 @sample.route("/")
 def main():
-    registros = []
-
-    try:
-        conn = get_connection()
-        cursor = conn.cursor(dictionary=True)
-
-        cursor.execute(
-            "SELECT id, nombre_completo, numero_documento, ficha "
-            "FROM aprendices"
-        )
-
-        registros = cursor.fetchall()
-
-        cursor.close()
-        conn.close()
-
-    except Error as e:
-        print(f"Error al consultar: {e}")
-
-    return render_template("index.html", registros=registros)
+    # Fallo intencional para que falle Pytest
+    return "Error interno del servidor", 500
 
 
 @sample.route("/registrar", methods=["POST"])
