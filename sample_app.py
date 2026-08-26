@@ -76,5 +76,4 @@ def version():
     return "<h2>Bienvenido - Deploy verificado: contenedor actualizado correctamente</h2>"
 
 
-if __name__ == "__main__":
-    sample.run(host="0.0.0.0", port=5050, debug=False)
+sample.run(host="127.0.0.1", port=5050, debug=False)
