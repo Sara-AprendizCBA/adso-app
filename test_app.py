@@ -1,2 +1,4 @@
+import unittest
+
 def test_ejemplo_basico():
-    assert 1 + 1 == 2
+    unittest.TestCase().assertEqual(1 + 1, 2)
