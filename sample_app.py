@@ -1,3 +1,6 @@
+# Samply_app corregido para que funcione con la nueva versión de Python 3.12 y las dependencias actualizadas
+
+
 from flask import Flask, request, render_template, redirect, url_for
 import mysql.connector
 from mysql.connector import Error
