@@ -2,11 +2,11 @@ FROM python:3.9-slim
 
 WORKDIR /home/myapp
 
-# Actualizar el sistema base para parchear vulnerabilidades de Debian
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
+# Se añade --upgrade setuptools para actualizar jaraco.context y wheel internos
+RUN pip install --no-cache-dir --upgrade pip setuptools && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY . .
